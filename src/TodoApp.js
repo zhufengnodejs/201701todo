@@ -3,10 +3,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import TodoHeader from './TodoHeader';
 import TodoItem from './TodoItem';
 import TodoFooter from './TodoFooter';
+import * as filterTypes from './filter-types';
 export default class TodoApp extends React.Component {
     constructor(props){
         super(props);
-        this.state = {todos:[]};//初始化默认状态
+        this.state = {
+            todos:[],
+            filterType:filterTypes.ALL
+        };//初始化默认状态
     }
     toggle = (id)=>{
         let todos = this.state.todos;
@@ -32,7 +36,6 @@ export default class TodoApp extends React.Component {
     }
     toggleAll = (event)=>{
         let checked = event.target.checked;
-        console.log(checked);
         let todos = this.state.todos;
         todos = todos.map(todo=>{
             todo.completed = checked;
@@ -40,10 +43,22 @@ export default class TodoApp extends React.Component {
         })
         this.setState({todos});
     }
+    changeFilterType=(filterType)=>{
+        this.setState({filterType});
+    }
     render() {
         let todos = this.state.todos;
         let activeTodoCount = todos.reduce((count,todo)=>count+(todo.completed?0:1),0);
-
+        let showTodos = todos.filter((todo)=>{
+            switch (this.state.filterType){
+                case filterTypes.ACTIVE://要显示未完成的
+                    return !todo.completed;
+                case filterTypes.COMPLETED://完成的
+                    return todo.completed;
+                default:
+                    return true;
+            }
+        })
         let main = (
             <ul className="list-group">
                 {
@@ -53,7 +68,7 @@ export default class TodoApp extends React.Component {
                 }
 
                 {
-                    this.state.todos.map((todo,index)=><TodoItem
+                    showTodos.map((todo,index)=><TodoItem
               toggle={this.toggle}
               key={index}
               todo={todo}
@@ -74,7 +89,11 @@ export default class TodoApp extends React.Component {
                                 {main}
                             </div>
                             <div className="panel-footer">
-                                <TodoFooter activeTodoCount={activeTodoCount}/>
+                                <TodoFooter
+                                    activeTodoCount={activeTodoCount}
+ changeFilterType ={this.changeFilterType}
+ filterType = {this.state.filterType}
+                                />
                             </div>
                         </div>
                     </div>
