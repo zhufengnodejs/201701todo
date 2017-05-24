@@ -1,12 +1,19 @@
 import React from 'react';
-export default  class TodoHeader extends React.Component{
-    render(){
+const ENTRY_KEY = 13;
+export default  class TodoHeader extends React.Component {
+    handleKeyDown = (event) => {
+        if (event.keyCode === ENTRY_KEY) {
+            let title = event.target.value;
+            this.props.addTodo({title});
+            event.target.value = '';
+        }
+    }
+
+    render() {
         return (
-            <form>
-                <div className="form-group">
-                    <input autoFocus={true} type="text" className="form-control"/>
-                </div>
-            </form>
+            <div className="form-group">
+                <input autoFocus={true} type="text" onKeyDown={this.handleKeyDown} className="form-control"/>
+            </div>
         )
     }
 }

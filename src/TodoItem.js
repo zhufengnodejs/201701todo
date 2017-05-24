@@ -8,7 +8,7 @@ export default class TodoItem extends React.Component{
                         <input type="checkbox"/>
                     </div>
                     <div className="col-md-10">
-                        今天好好学习React
+                        {this.props.todo.title}
                     </div>
                     <div className="col-md-1">
                         <button className="btn btn-danger btn-xs">X</button>
