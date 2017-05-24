@@ -1,10 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import TodoHeader from './TodoHeader';
-export default class TodoApp extends React.Component{
-    render(){
+import TodoItem from './TodoItem';
+export default class TodoApp extends React.Component {
+    render() {
+        let main = (
+            <ul className="list-group">
+                <TodoItem></TodoItem>
+            </ul>
+        )
         return (
-            <div className="container" style={{marginTop:20}}>
+            <div className="container" style={{marginTop: 20}}>
                 <div className="row">
                     <div className="col-md-6 col-md-offset-3">
                         <div className="panel panel-default">
@@ -12,7 +18,7 @@ export default class TodoApp extends React.Component{
                                 <TodoHeader/>
                             </div>
                             <div className="panel-body">
-
+                                {main}
                             </div>
                             <div className="panel-footer">
 
