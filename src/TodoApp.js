@@ -46,9 +46,15 @@ export default class TodoApp extends React.Component {
     changeFilterType=(filterType)=>{
         this.setState({filterType});
     }
+    clearCompleted = ()=>{
+        let todos = this.state.todos;
+        todos = todos.filter(todo=>!todo.completed);
+        this.setState({todos});
+    }
     render() {
         let todos = this.state.todos;
         let activeTodoCount = todos.reduce((count,todo)=>count+(todo.completed?0:1),0);
+        let completedTodoCount = todos.length - activeTodoCount;
         let showTodos = todos.filter((todo)=>{
             switch (this.state.filterType){
                 case filterTypes.ACTIVE://要显示未完成的
@@ -93,6 +99,8 @@ export default class TodoApp extends React.Component {
                                     activeTodoCount={activeTodoCount}
  changeFilterType ={this.changeFilterType}
  filterType = {this.state.filterType}
+ clearCompleted = {this.clearCompleted}
+ completedTodoCount = {completedTodoCount}
                                 />
                             </div>
                         </div>

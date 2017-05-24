@@ -5,7 +5,12 @@ export default class TodoFooter extends React.Component{
         return (
             <div className="row">
                 <div className="col-xs-3 text-center">
-                    <a href="#" style={{textDecoration:'none'}}>你有 <span className="badge">{this.props.activeTodoCount}</span>件待办</a>
+                    {
+                        this.props.activeTodoCount>0?
+                            <div style={{height:'30px',lineHeight:'30px'}}>
+                                <a href="#" style={{textDecoration:'none'}}>你有 <span className="badge">{this.props.activeTodoCount}</span>件待办</a>
+                            </div>:null
+                    }
                 </div>
                 <div className="col-xs-6 text-center">
                     <button className={`btn ${this.props.filterType == FilterTypes.ALL?'btn-success':'btn-default'} btn-sm`} onClick={()=>this.props.changeFilterType(FilterTypes.ALL)}>全部</button>
@@ -13,6 +18,9 @@ export default class TodoFooter extends React.Component{
                     <button style={{marginLeft:10}} className={`btn ${this.props.filterType == FilterTypes.COMPLETED?'btn-success':'btn-default'} btn-sm`}  onClick={()=>this.props.changeFilterType(FilterTypes.COMPLETED)}>已完成</button>
                 </div>
                 <div className="col-xs-3 text-center">
+                    {
+                        this.props.completedTodoCount>0?<button className="btn btn-danger btn-sm" onClick={this.props.clearCompleted}>删除已完成</button>:null
+                    }
 
                 </div>
             </div>
