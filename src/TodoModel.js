@@ -45,7 +45,6 @@ export default class TodoModel{
     }
 
     toggleAll = (event)=>{
-        console.log(event);
         let checked = event.target.checked;
         let todos = this.todos;
         todos = todos.map(todo=>{
