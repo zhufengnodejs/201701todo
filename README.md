@@ -7,3 +7,10 @@ cd 201701todo
 yarn start
 
 ```
+
+### 2. 实现功能
+- 1.需求分析
+- 2.初始化项目并提交github
+- 3. 引入bootstrap并编写TodoHeader组件
+
+
